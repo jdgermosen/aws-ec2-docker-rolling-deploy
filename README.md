@@ -1,4 +1,3 @@
-```
 # Zero-Downtime Docker Deploy on AWS (Manual Workflow)
 
 _A case study of how I kept **AI Prodigy** running at 99.9 % availability using nothing
@@ -82,4 +81,3 @@ Reduced release lead-time 5× versus manual ssh && docker pull.
 # Tech Stack
 
 AWS (EC2·ALB·ASG·ECR·Secrets Manager) · Docker · Bash · CloudWatch · Route 53 · TLS/ACM · PostgreSQL
-```

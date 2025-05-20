@@ -27,11 +27,7 @@ Route 53 → ALB (HTTPS)
 
 Private subnets + RDS Postgres + NAT Instance + VPC Interface Endpoints
 
-yaml
-Copy
-Edit
-
-*Diagram source: `assets/arch.png`.*
+![Architecture diagram](assets/arch.png)
 
 ---
 

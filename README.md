@@ -10,7 +10,7 @@ but the AWS Console, the CLI, and well-crafted user-data scripts._
 |--------|--------|
 | **High availability** | 99.9 % measured service uptime across two AZs |
 | **Zero-downtime releases** | Rolling updates—new instances pass health checks before traffic shifts |
-| **Cost optimisation** | ≈ 40 % lower monthly networking spend by swapping a NAT Gateway for a NAT `t3.micro` + VPC interface endpoints |
+| **Cost optimisation** | ~ 40 % lower monthly networking spend by swapping a NAT Gateway for a NAT `t3.micro` + VPC interface endpoints |
 | **Security** | All secrets pulled at boot from AWS Secrets Manager; TLS everywhere via ACM |
 | **Hands-on skills** | EC2 Auto Scaling, ALB path routing, Docker, ECR, Bash cloud-init, CloudWatch Alarms |
 

@@ -14,7 +14,7 @@ but the AWS Console, the CLI, and well-crafted user-data scripts._
 | **Security** | All secrets pulled at boot from AWS Secrets Manager; TLS everywhere via ACM |
 | **Hands-on skills** | EC2 Auto Scaling, ALB path routing, Docker, ECR, Bash cloud-init, CloudWatch Alarms |
 
-*(Full run-book—with exact commands, IAM JSON and user-data—is kept private; available on request.)*
+*(Full run-book—with exact commands, IAM JSON and user-data—is kept private)*
 
 ---
 
@@ -60,7 +60,7 @@ No SSH into production boxes; every change is reproducible.
 
 - Secrets Manager – DB creds & JWT secret pulled at boot
 
-- CloudWatch – logs, metrics, alarms → SNS → Slack
+- CloudWatch – logs, metrics, alarms → SNS
 
 - ACM – TLS certificates
 

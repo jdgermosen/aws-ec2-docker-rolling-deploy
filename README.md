@@ -20,13 +20,6 @@ but the AWS Console, the CLI, and well-crafted user-data scripts._
 
 ## At-a-Glance Architecture
 
-Route 53 → ALB (HTTPS)
-├╴/ → UI TG → EC2 ASG (ui)
-├╴/api/* → API TG → EC2 ASG (api)
-└╴/ws/* → WS TG → EC2 ASG (ws)
-
-Private subnets + RDS Postgres + NAT Instance + VPC Interface Endpoints
-
 ![Architecture diagram](assets/arch.png)
 
 ---

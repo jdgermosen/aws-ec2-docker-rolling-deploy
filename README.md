@@ -30,43 +30,40 @@ but the AWS Console, the CLI, and well-crafted user-data scripts._
    ```bash
    docker build -t ap-api:<git-sha> backend/
    docker push <acct>.dkr.ecr.<region>.amazonaws.com/ap-api:<git-sha>
-2. Create a new Launch Template version
-– Same hardened Amazon Linux 2 AMI
-– User-data pulls <git-sha> image from ECR and starts the container.
-
-3. Attach LT version to the Auto Scaling Group
-– Policy: Max Surge 1, Max Unavailable 0.
-– A new instance boots, passes ALB health checks, then an old one drains.
-
-4. Observe with CloudWatch Alarms (HTTPCode_Target_5XX_Count) and Slack notifications.
-
-5. Rollback in one step: re-point the ASG to the previous LT version.
+   ```
+2. **Create a new Launch Template version**
+   - Same hardened Amazon Linux 2 AMI
+   - User-data pulls the `<git-sha>` image from ECR and starts the container.
+3. **Point the Auto Scaling Group at the new version and start an instance refresh**
+   - Minimum healthy 100 %, maximum healthy 200 % (launch before terminate).
+   - A new instance boots and passes ALB health checks, then an old one is drained and terminated.
+4. **Observe** with CloudWatch Alarms (`HTTPCode_Target_5XX_Count`) and Slack notifications.
+5. **Roll back** by pointing the ASG at the previous Launch Template version and refreshing again.
 
 No SSH into production boxes; every change is reproducible.
 
-# Key AWS Services Used
+## Key AWS Services Used
 - EC2 Auto Scaling – capacity spread across us-east-2a/b
-
 - Application Load Balancer – HTTPS, path-based routing
-
 - ECR – private Docker registry
-
 - Secrets Manager – DB creds & JWT secret pulled at boot
-
 - CloudWatch – logs, metrics, alarms → SNS
-
 - ACM – TLS certificates
 
- # Results & Lessons
+## Results & Lessons
 
-Reduced release lead-time 5× versus manual ssh && docker pull.
-
+- Reduced release lead-time 5× versus manual `ssh && docker pull`.
 - Cut networking cost ≈ 40 % by replacing the managed NAT Gateway.
-
 - Proved that even without fancy CI/CD you can achieve continuous delivery principles with built-in AWS primitives.
 
-- Next step: migrate this flow to GitHub Actions → CodeDeploy blue-green and Terraform for full IaC.
+## What Came Next
 
-# Tech Stack
+- **Jun 2025:** moved this flow to GitHub Actions → ECR → AWS CodeDeploy blue/green.
+- **Oct 2025:** migrated the website to ECS Fargate with all infrastructure in Terraform.
+- **Mar 2026:** moved the website to a serverless Terraform stack (CloudFront, API Gateway, Lambda).
+
+See [infrastructure-docs](https://github.com/jdgermosen/infrastructure-docs) for the architecture timeline.
+
+## Tech Stack
 
 AWS (EC2·ALB·ASG·ECR·Secrets Manager) · Docker · Bash · CloudWatch · Route 53 · TLS/ACM · PostgreSQL
